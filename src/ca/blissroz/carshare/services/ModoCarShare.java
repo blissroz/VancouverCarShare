@@ -1,4 +1,4 @@
-package ca.blissroz.carshare;
+package ca.blissroz.carshare.services;
 
 public class ModoCarShare extends AbstractCarShareService {
     private static final String CAR_SHARE_NAME = "Modo";

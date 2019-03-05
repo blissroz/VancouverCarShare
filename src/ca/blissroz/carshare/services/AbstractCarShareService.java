@@ -1,4 +1,4 @@
-package ca.blissroz.carshare;
+package ca.blissroz.carshare.services;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,7 +46,7 @@ public abstract class AbstractCarShareService {
         String description;
         Double cost;
 
-        Result(String description, Double cost) {
+        public Result(String description, Double cost) {
             this.description = description;
             this.cost = cost;
         }

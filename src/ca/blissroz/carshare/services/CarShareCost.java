@@ -1,4 +1,4 @@
-package ca.blissroz.carshare;
+package ca.blissroz.carshare.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;

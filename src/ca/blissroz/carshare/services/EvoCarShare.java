@@ -1,4 +1,4 @@
-package ca.blissroz.carshare;
+package ca.blissroz.carshare.services;
 
 public class EvoCarShare extends AbstractCarShareService {
     private static final String CAR_SHARE_NAME = "Evo";
@@ -23,16 +23,16 @@ public class EvoCarShare extends AbstractCarShareService {
 
     private double dayCost(double time) {
         return Math.floor(time / HOURS_PER_DAY) * PER_DAY
-                + Math.min(hourCost(time - Math.floor(time / HOURS_PER_DAY)), PER_DAY);
+                + hourCost(time - Math.floor(time / HOURS_PER_DAY) * HOURS_PER_DAY);
     }
 
     private double hourCost(double time) {
-        return Math.floor(time) * PER_HOUR
-                + Math.min(minsCost(time - Math.floor(time)), PER_HOUR);
+        return Math.min(Math.floor(time) * PER_HOUR, PER_DAY)
+                + minsCost(time - Math.floor(time));
     }
 
     private double minsCost(double time) {
-        return time * MINUTES_PER_HOUR * PER_MINUTE;
+        return Math.min(time * MINUTES_PER_HOUR * PER_MINUTE, PER_HOUR);
     }
 
     @Override
