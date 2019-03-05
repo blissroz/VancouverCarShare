@@ -38,7 +38,8 @@ public class Car2GoCarShare extends AbstractCarShareService {
      * In Car2Go, you preselect the package such as 1 hr, 3 hr, etc. You cannot combine packages, and you
      * pay the per minute rate once the time from that package has expired. There is no other option.
      */
-    public Car2GoCarShare() { }
+    public Car2GoCarShare() {
+    }
 
     @Override
     public Result getCost(final double distance,
@@ -54,15 +55,16 @@ public class Car2GoCarShare extends AbstractCarShareService {
 
     /**
      * Note: currently, not optimized for distance. Yikes !
+     *
      * @param distance in km
-     * @param time in hours
-     * @param costs associated with vehicle size
+     * @param time     in hours
+     * @param costs    associated with vehicle size
      * @return total cost of trip
      */
     private Result getCost(final double distance,
-                                              final double time,
-                                              final Map<Integer, Double> costs,
-                                              final Double perMinute) {
+                           final double time,
+                           final Map<Integer, Double> costs,
+                           final Double perMinute) {
         TreeMap<Double, String> allCosts = new TreeMap<>();
         double baseDistanceCost = Math.max(distance - KM_INCLUDED_BASE, 0) * COST_PER_KM;
         allCosts.put(time * MINUTES_PER_HOUR * perMinute + baseDistanceCost, "Per minute rental cost");
@@ -70,9 +72,9 @@ public class Car2GoCarShare extends AbstractCarShareService {
         Double timeCost, distanceCost;
         Iterator it = costs.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry cost = (Map.Entry)it.next();
-            Double costForTime = (Double)cost.getValue();
-            Integer amountOfTime = (Integer)cost.getKey();
+            Map.Entry cost = (Map.Entry) it.next();
+            Double costForTime = (Double) cost.getValue();
+            Integer amountOfTime = (Integer) cost.getKey();
 
             timeCost = costForTime + Math.max((time - amountOfTime) * MINUTES_PER_HOUR * perMinute, 0);
             if (amountOfTime == THREE_DAY * HOURS_PER_DAY) {

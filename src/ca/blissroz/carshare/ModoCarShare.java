@@ -15,6 +15,7 @@ public class ModoCarShare extends AbstractCarShareService {
 
     /**
      * in Modo, time is prebooked, and the best rate is given based on Plus/Basic plans
+     *
      * @param hasModoPlus
      */
     public ModoCarShare(boolean hasModoPlus) {

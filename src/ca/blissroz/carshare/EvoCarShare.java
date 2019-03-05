@@ -9,9 +9,10 @@ public class EvoCarShare extends AbstractCarShareService {
 
     /**
      * In Evo, the cost is automatically the best one given your time and distance (they auto apply
-     *  hourly rates, you do not select while booking)
+     * hourly rates, you do not select while booking)
      */
-    public EvoCarShare() {}
+    public EvoCarShare() {
+    }
 
     @Override
     public Result getCost(double distance, double time, String timeUnit, int numPeople) {
@@ -24,6 +25,7 @@ public class EvoCarShare extends AbstractCarShareService {
         return Math.floor(time / HOURS_PER_DAY) * PER_DAY
                 + Math.min(hourCost(time - Math.floor(time / HOURS_PER_DAY)), PER_DAY);
     }
+
     private double hourCost(double time) {
         return Math.floor(time) * PER_HOUR
                 + Math.min(minsCost(time - Math.floor(time)), PER_HOUR);
