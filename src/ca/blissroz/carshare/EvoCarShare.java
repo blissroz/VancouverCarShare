@@ -7,10 +7,17 @@ public class EvoCarShare extends AbstractCarShareService {
     private static final double PER_HOUR = 14.99;
     private static final double PER_DAY = 89.99;
 
+    /**
+     * In Evo, the cost is automatically the best one given your time and distance (they auto apply
+     *  hourly rates, you do not select while booking)
+     */
+    public EvoCarShare() {}
+
     @Override
-    public double getCost(double distance, double time, String timeUnit, int numPeople) {
+    public Result getCost(double distance, double time, String timeUnit, int numPeople) {
         double timeInHours = getTimeInHours(time, timeUnit);
-        return dayCost(timeInHours);
+        return new Result(getName() + " cost",
+                dayCost(timeInHours));
     }
 
     private double dayCost(double time) {

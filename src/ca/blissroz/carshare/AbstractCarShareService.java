@@ -1,5 +1,8 @@
 package ca.blissroz.carshare;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 public abstract class AbstractCarShareService {
     public static final String HOURS_TIME = "Hours";
     public static final String MINUTES_TIME = "Minutes";
@@ -15,7 +18,7 @@ public abstract class AbstractCarShareService {
      * @param numPeople how many people will go on the trip, between 1 and 5, inclusive
      * @return the amount it'll cost
      */
-    public abstract double getCost(final double distance,
+    public abstract Result getCost(final double distance,
                                    final double time,
                                    final String timeUnit,
                                    final int numPeople);
@@ -31,6 +34,24 @@ public abstract class AbstractCarShareService {
             case HOURS_TIME: return time;
             case DAYS_TIME: return time * HOURS_PER_DAY;
             default: return 0; //throw new Exception("Unexpected time unit");
+        }
+    }
+
+    public class Result {
+        String description;
+        Double cost;
+
+        Result(String description, Double cost) {
+            this.description = description;
+            this.cost = cost;
+        }
+
+        public Double getCost() {
+            return cost;
+        }
+
+        public String getDescription() {
+            return description;
         }
     }
 }

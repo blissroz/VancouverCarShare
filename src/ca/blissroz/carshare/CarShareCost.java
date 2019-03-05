@@ -2,7 +2,6 @@ package ca.blissroz.carshare;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 public class CarShareCost {
@@ -23,9 +22,10 @@ public class CarShareCost {
                                       final int numPeople) {
         this.cheapestPrice = Integer.MAX_VALUE;
         for (AbstractCarShareService service : carShareServices) {
-            double newCost = service.getCost(distance, time, timeUnit, numPeople);
-            if (newCost < this.cheapestPrice) {
-                this.cheapestPrice = newCost;
+            AbstractCarShareService.Result newCost = service.getCost(distance, time, timeUnit, numPeople);
+            System.out.println(newCost.description + " : " + newCost.cost);
+            if (newCost.cost < this.cheapestPrice) {
+                this.cheapestPrice = newCost.cost;
                 this.cheapestCompany = service.getName();
             }
         }

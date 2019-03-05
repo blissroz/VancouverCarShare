@@ -13,24 +13,29 @@ public class ModoCarShare extends AbstractCarShareService {
 
     private boolean hasModoPlus;
 
+    /**
+     * in Modo, time is prebooked, and the best rate is given based on Plus/Basic plans
+     * @param hasModoPlus
+     */
     public ModoCarShare(boolean hasModoPlus) {
         this.hasModoPlus = hasModoPlus;
     }
 
     @Override
-    public double getCost(final double distance,
+    public Result getCost(final double distance,
                           final double time,
                           final String timeUnit,
                           final int numPeople) {
         return getCostOfTrip(distance, getTimeInHours(time, timeUnit));
     }
 
-    private double getCostOfTrip(final double distance,
+    private Result getCostOfTrip(final double distance,
                                  final double time) {
         if (!hasModoPlus) {
-            return getBasicCost(distance, time);
+            return new Result(getName() + " basic cost", getBasicCost(distance, time));
         } else {
-            return Math.min(getBasicCost(distance, time), getPlusCost(distance, time));
+            return new Result(getName() + " plus (or basic, if better) cost",
+                    Math.min(getBasicCost(distance, time), getPlusCost(distance, time)));
         }
     }
 
